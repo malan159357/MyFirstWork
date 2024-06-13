@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyi.mapper.ShoppingMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.zhiyi.model.entity.Shopping">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="shoppingName" column="shopping_name" jdbcType="VARCHAR"/>
+            <result property="saleCount" column="sale_count" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="isdelete" column="isDelete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,shopping_name,sale_count,
+        type,isDelete
+    </sql>
+    <select id="getAllShopping" resultType="com.example.zhiyi.model.entity.Shopping">
+        SELECT * FROM shopping;
+    </select>
+    <select id="getEcharts" resultType="com.example.zhiyi.model.vo.Echarts">
+        SELECT type,SUM(sale_count) AS total_count FROM shopping GROUP BY type;
+    </select>
+</mapper>
